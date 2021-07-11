@@ -19,7 +19,6 @@ function App() {
   const classes=useStyles();
   const [genre, setGenre] = useState("");
   const [matchingWebtoons, setMatchingWebtoons]= useState([]); //initial value is going to be an empty array.
-  
 
   const handleSubmit = (e) => {
     e.preventDefault(); //to prevent the page from automatically refreshing.
@@ -38,13 +37,13 @@ function App() {
       // } else {
       //   console.log("Oopsie no matching webtoons for that genre. :/")
       // }
+      }
     }
   }
-}
 
-useEffect(()=> {
-  console.log(matchingWebtoons)
-}, [matchingWebtoons]);
+  useEffect(()=> {
+    console.log(matchingWebtoons)
+  }, [matchingWebtoons]);
 
   // function showMatchingWebtoon(id) {
   //   setMatchingWebtoons(matchingWebtoons.filter((webtoonItem, index) =>{
@@ -56,50 +55,49 @@ useEffect(()=> {
 
   // const matched = webtoons.filter(webtoon => webtoon.genre.includes("wholesome"));
 
+  return (
 
-    return (
+    <Container maxWidth="sm" className={classes.container}>
+    <h1>Manhwa Generator</h1>
+    <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
+      <TextField id="outlined-basic" label="Genre" variant="outlined" onChange={(e) => setGenre(e.target.value)}/>
+      <Button type="submit" variant="contained" color="secondary">
+      Generate
+    </Button>
+    </form>
 
-      <Container maxWidth="sm" className={classes.container}>
-      <h1>Manhwa Generator</h1>
-      <form className={classes.root} onSubmit={handleSubmit} noValidate autoComplete="off">
-        <TextField id="outlined-basic" label="Genre" variant="outlined" onChange={(e) => setGenre(e.target.value)}/>
-        <Button type="submit" variant="contained" color="secondary">
-        Generate
-      </Button>
-      </form>
-
-      {/*You only want to render one webtoon title. */}
-      {matchingWebtoons.map(webtoonItem => {
-        return <Webtoon
-        title = {webtoonItem.title}
-        genre = {webtoonItem.genre}
-        synopsis = {webtoonItem.synopsis}
-        />
-      })}
-
-
-
-
-      {/* <Webtoon 
-      title = {webtoons[0].title}
-      genre = {webtoons[0].genre}
-      synopsis = {webtoons[0].synopsis}
+    {/*You only want to render one webtoon title. */}
+    {
+      <Webtoon
+      title = {matchingWebtoons.title}
+      genre = {matchingWebtoons.genre}
+      synopsis = {matchingWebtoons.synopsis}
       />
+    }
 
-    <Webtoon 
-      title = {webtoons[1].title}
-      genre = {webtoons[1].genre}
-      synopsis = {webtoons[1].synopsis}
-      />
 
-    <Webtoon 
-      title = {webtoons[2].title}
-      genre = {webtoons[2].genre}
-      synopsis = {webtoons[2].synopsis}
-      /> */}
 
-      </Container>
-    );
+
+    {/* <Webtoon 
+    title = {webtoons[0].title}
+    genre = {webtoons[0].genre}
+    synopsis = {webtoons[0].synopsis}
+    />
+
+  <Webtoon 
+    title = {webtoons[1].title}
+    genre = {webtoons[1].genre}
+    synopsis = {webtoons[1].synopsis}
+    />
+
+  <Webtoon 
+    title = {webtoons[2].title}
+    genre = {webtoons[2].genre}
+    synopsis = {webtoons[2].synopsis}
+    /> */}
+
+    </Container>
+  );
 }
 
 export default App;
